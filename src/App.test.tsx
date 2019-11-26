@@ -1,9 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
+import { render, fireEvent } from '@testing-library/react'
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+let container: any = null
+
+
+test("Show twilio page on the 5th click", async () => {
+  const { getByRole } = render(<App />);
+  for (let i = 0; i < 5; i++) {
+    fireEvent.click(getByRole("button"))
+  }
+  expect(getByRole('heading').textContent).toContain('Hello')
 });
