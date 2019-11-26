@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
-import Button from '../components/Button';
+import Room from './Room';
+import JoinRoomForm from './JoinRoomForm';
 
-interface VideoCallProps {
-  heading?: string
-}
 
-const VideoCall: React.FC<VideoCallProps> = ({ heading }) => {
-  
-  return (
-    <div>
-     <h3>Hello video call</h3>
-    </div>
-  );
+const VideoCall: React.FC = () => {
+
+  const [hasJoinedRoom, joinRoom] = useState(false)
+
+  const component = hasJoinedRoom ? <Room /> : <JoinRoomForm join={joinRoom} />
+
+  return component;
 }
 
 export default VideoCall;

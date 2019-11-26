@@ -18,6 +18,8 @@ const Auth: React.FC<AuthProps> = ({ heading, authenticate }) => {
     <div className="Auth">
       <h2>{heading}</h2>
       <p>Press the "I'm human" button {count} times</p>
+
+      
       <Button onClick={handleClick} > I'm human </Button>
     </div>
   );
