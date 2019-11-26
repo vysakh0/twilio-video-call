@@ -1,37 +1,24 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Auth from './Auth'
-
-import { act } from "react-dom/test-utils";
+import { render, fireEvent } from '@testing-library/react'
 
 let container: any = null
 
-beforeEach(() => {
-  container = document.createElement("div");
-  document.body.appendChild(container);
+
+test("decrements", async () => {
+  const { getByText, getByRole } = render(<Auth heading='test' authenticate={jest.fn()} />);
+  for (let i = 0; i < 3; i++) {
+    fireEvent.click(getByRole("button"))
+  }
+  expect(getByText(/Press/i).textContent).toContain('2 times')
 });
 
-afterEach(() => {
-  ReactDOM.unmountComponentAtNode(container);
-  container.remove();
-  container = null;
-});
-
-it("contains the proper heading", () => {
-  act(() => {
-    ReactDOM.render(<Auth heading='Login page check' />, container);
-  });
-  expect(container.textContent).toContain("Login page check");
-});
-
-it("increments", () => {
-  act(() => {
-    ReactDOM.render(<Auth heading='test' />, container);
-  });
-  act(() => {
-    container
-      .querySelector("[data-testid=increment]")
-      .dispatchEvent(new MouseEvent("click", { bubbles: true }));
-  })
-  expect(container.textContent).toContain("Press the \"I'm human\" button 4 times");
+test("authenticate on the 5th click", async () => {
+  const authenticate = jest.fn();
+  const { getByText, getByRole } = render(<Auth heading='test' authenticate={authenticate} />);
+  for (let i = 0; i < 5; i++) {
+    fireEvent.click(getByRole("button"))
+  }
+  expect(authenticate).toBeCalled();
 });
