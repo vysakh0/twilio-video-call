@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Button from './Button';
 
 interface AuthProps {
   heading?: string
@@ -10,7 +11,7 @@ const Auth: React.FC<AuthProps> = ({ heading }) => {
     <div className="Auth">
       <h2>{heading}</h2>
       <p>Press the "I'm human" button {count} times</p>
-      <button onClick={() => setCount(count - 1)} data-testid="increment"> I'm human </button>
+      <Button onClick={() => setCount(count - 1)} data-testid="increment"> I'm human </Button>
     </div>
   );
 }
